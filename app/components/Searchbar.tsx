@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import SearchResult from "./SearchResult";
-import { getCountries } from "../actions/getCountries";
+import { getWeatherByLocation } from "../actions/weather";
 
 const Searchbar = () => {
   const [searchOpen, setSearhOpen] = useState(false);
@@ -15,8 +16,22 @@ const Searchbar = () => {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = getCountries(name);
   };
+
+  const successCallback = (position: any) => {
+    if (position) {
+      console.log(
+        getWeatherByLocation(
+          position.coords.latitude,
+          position.coords.longitude
+        )
+      );
+    }
+  };
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(successCallback);
+  }, []);
+
   return (
     <div className=" lg:w-[460px] h-full text-white bg-[#1E213A] p-4 flex justify-center ">
       {searchOpen ? (
@@ -47,7 +62,8 @@ const Searchbar = () => {
               onChange={(e) => setName(e.target.value)}
             />
             <button className="btn btn-primary" type="submit">
-              <span className="loading loading-spinner"></span>Search
+              {/* <span className="loading loading-spinner"></span> */}
+              Search
             </button>
           </form>
           <div className="flex flex-col gap-3 mt-5">
@@ -66,5 +82,4 @@ const Searchbar = () => {
     </div>
   );
 };
-
 export default Searchbar;

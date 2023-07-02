@@ -15,6 +15,10 @@ module.exports = {
       fontFamily: {
         raleway: ["Raleway", "sans-serif"],
       },
+      colors: {
+        "custom-primary": "#100E1D",
+        "custom-secondary": "#1E213A",
+      },
     },
   },
   plugins: [require("daisyui")],

@@ -6,4 +6,5 @@
 
 body {
   @apply bg-[#100E1D] font-raleway;
+  font-family: "Raleway", sans-serif !important;
 }
