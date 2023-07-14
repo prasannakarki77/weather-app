@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SearchResult from "./SearchResult";
 import { getWeatherByLocation } from "../actions/weather";
+import { WeatherContext } from "../context/WeatherContext";
 
 const Searchbar = () => {
   const [searchOpen, setSearhOpen] = useState(false);
-  const [name, setName] = useState("");
+  const { setCity, city, getLatLng, searchResults } =
+    useContext(WeatherContext);
   const handleSearchClose = () => {
     setSearhOpen(false);
   };
@@ -18,18 +20,9 @@ const Searchbar = () => {
     e.preventDefault();
   };
 
-  const successCallback = (position: any) => {
-    if (position) {
-      console.log(
-        getWeatherByLocation(
-          position.coords.latitude,
-          position.coords.longitude
-        )
-      );
-    }
-  };
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(successCallback);
+    getLatLng("Bhaktapur");
+    console.log(searchResults);
   }, []);
 
   return (
@@ -59,16 +52,25 @@ const Searchbar = () => {
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full max-w-xs"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setCity(e.target.value)}
             />
-            <button className="btn btn-primary" type="submit">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              onClick={() => getLatLng(city)}
+            >
               {/* <span className="loading loading-spinner"></span> */}
               Search
             </button>
           </form>
           <div className="flex flex-col gap-3 mt-5">
-            <SearchResult place="Nepal" />
-            <SearchResult place="Nepal" />
+            {searchResults.map((city) => (
+              <SearchResult
+                place={city.name}
+                key={city.lat}
+                code={city.country}
+              />
+            ))}
           </div>
         </div>
       ) : (
