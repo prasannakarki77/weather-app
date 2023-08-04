@@ -1,36 +1,11 @@
 "use client";
 
 import { Dispatch, SetStateAction, createContext, useState } from "react";
-
-interface Current {
-  wind: number | null;
-  humidity: number | null;
-  visibility: number | null;
-  pressure: number | null;
-}
-
-interface Forecast {
-  day: string | Date | null;
-  temp: number | null;
-}
-
-interface CitySearchResult {
-  name: string;
-  lat: number;
-  lon: number;
-  country: string;
-}
-
-interface WeatherContextProps {
-  city: string;
-  setCity: Dispatch<SetStateAction<string>>;
-  current: Current | null;
-  getLatLng: (city: string) => Promise<void>;
-  searchResults: CitySearchResult[] | [];
-  // forecast: Forecast[] | null;
-  // fetchCurrentWeather: () => undefined;
-  // fetchWeatherForecast: () => undefined;
-}
+import {
+  CitySearchResult,
+  Current,
+  WeatherContextProps,
+} from "../types/WeatherContextType";
 
 export const WeatherContext = createContext<WeatherContextProps>({
   city: "Kathmandu",
@@ -38,6 +13,8 @@ export const WeatherContext = createContext<WeatherContextProps>({
   current: null,
   getLatLng: async () => {},
   searchResults: [],
+  getLocationWeather: async (lat: number, lon: number) => {},
+  selectedPlace: "",
 });
 
 interface WeatherProviderProps {
@@ -46,7 +23,8 @@ interface WeatherProviderProps {
 
 export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [city, setCity] = useState("Kathmandu");
-  const [current, setCurrent] = useState(null);
+  const [selectedPlace, setSelectedPlace] = useState("");
+  const [current, setCurrent] = useState<Current | null>(null);
   const [searchResults, setsearchResults] = useState<CitySearchResult[] | []>(
     []
   );
@@ -55,6 +33,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
       `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${process.env.NEXT_PUBLIC_API_KEY}`
     );
     const data = await res.json();
+    console.log(data);
     // Filter out duplicate data based on name and country
     const filteredData = data.filter(
       (result: any, index: number, self: any[]) =>
@@ -74,7 +53,20 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     setsearchResults(transformedData);
   };
 
-  const getLocationWeather = async () => {};
+  const getLocationWeather = async (lat: number, lon: number, city: string) => {
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_API_KEY}`
+    );
+    const data = await res.json();
+    console.log(data);
+    setSelectedPlace(city);
+    setCurrent({
+      wind: data.wind.speed,
+      humidity: data.main.humidity,
+      pressure: data.main.pressure,
+      visibility: data.visibility,
+    });
+  };
 
   const value = {
     city,
@@ -82,6 +74,8 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     current,
     getLatLng,
     searchResults,
+    getLocationWeather,
+    selectedPlace,
   };
   return (
     <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>
