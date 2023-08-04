@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
+import Image from "next/image";
 import SearchResult from "./SearchResult";
 import { WeatherContext } from "../context/WeatherContext";
 import { MdLocationOn } from "react-icons/md";
@@ -9,6 +10,7 @@ const Searchbar = () => {
   const {
     setCity,
     city,
+    current,
     getLatLng,
     searchResults,
     selectedPlace,
@@ -88,6 +90,17 @@ const Searchbar = () => {
           Search for places
         </button>
       )}
+
+      <div>{current?.weather[0].main}</div>
+      {current?.weather[0].icon && (
+        <Image
+          src={`http://openweathermap.org/img/wn/${current?.weather[0].icon}@2x.png`}
+          alt={"icon"}
+          height={200}
+          width={200}
+        />
+      )}
+
       <div className="flex items-center gap-1 justify-center">
         <MdLocationOn /> {selectedPlace}
       </div>

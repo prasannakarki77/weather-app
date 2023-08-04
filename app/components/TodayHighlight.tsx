@@ -14,7 +14,7 @@ const TodayHighlight: React.FC<Props> = ({ current }) => {
         <div className=" bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
           <h3>Wind status</h3>
           <p className=" text-xl">
-            <span className=" text-6xl">{wind}</span>mph{" "}
+            <span className=" text-6xl">{wind?.speed}</span>mph{" "}
           </p>
         </div>
         <div className=" bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">

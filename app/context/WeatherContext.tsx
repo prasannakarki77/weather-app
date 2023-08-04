@@ -33,6 +33,10 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
       `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${process.env.NEXT_PUBLIC_API_KEY}`
     );
     const data = await res.json();
+    if (!data) {
+      setsearchResults([]);
+      return;
+    }
     console.log(data);
     // Filter out duplicate data based on name and country
     const filteredData = data.filter(
@@ -61,10 +65,11 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     console.log(data);
     setSelectedPlace(city);
     setCurrent({
-      wind: data.wind.speed,
+      wind: data.wind,
       humidity: data.main.humidity,
       pressure: data.main.pressure,
       visibility: data.visibility,
+      weather: data.weather,
     });
   };
 

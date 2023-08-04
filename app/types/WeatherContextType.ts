@@ -1,10 +1,23 @@
 import { Dispatch, SetStateAction } from "react";
 
+export interface Wind {
+  speed: number;
+  degree: number;
+}
+
+export interface Weather {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
+
 export interface Current {
-  wind: number | null;
+  wind: Wind | null;
   humidity: number | null;
   visibility: number | null;
   pressure: number | null;
+  weather: Weather[];
 }
 
 export interface Forecast {
