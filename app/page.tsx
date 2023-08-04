@@ -1,8 +1,5 @@
-import Image from "next/image";
 import Container from "./components/Container";
 import Searchbar from "./components/Searchbar";
-import WeatherForecast from "./components/WeatherForecast";
-import TodayHighlight from "./components/TodayHighlight";
 import { WeatherProvider } from "./context/WeatherContext";
 
 export default function Home() {
@@ -10,10 +7,7 @@ export default function Home() {
     <WeatherProvider>
       <main className=" flex h-screen ">
         <Searchbar />
-        <Container>
-          <WeatherForecast />
-          <TodayHighlight />
-        </Container>
+        <Container />
       </main>
     </WeatherProvider>
   );
