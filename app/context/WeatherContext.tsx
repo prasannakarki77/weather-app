@@ -70,6 +70,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
       pressure: data.main.pressure,
       visibility: data.visibility,
       weather: data.weather,
+      temp: data.main.temp,
     });
   };
 

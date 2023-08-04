@@ -6,6 +6,7 @@ interface SearchResultProps {
   code: string;
   lat: number;
   lon: number;
+  setSearchOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SearchResult: React.FC<SearchResultProps> = ({
@@ -13,9 +14,13 @@ const SearchResult: React.FC<SearchResultProps> = ({
   code,
   lat,
   lon,
+  setSearchOpen,
 }) => {
   const { getLocationWeather } = useContext(WeatherContext);
-  const handleCityClick = () => getLocationWeather(lat, lon, place);
+  const handleCityClick = () => {
+    getLocationWeather(lat, lon, place);
+    setSearchOpen(false);
+  };
   return (
     <div
       className="w-full p-3 border border-[#1E213A] hover:border-gray-400 transition-all hover:cursor-pointer"

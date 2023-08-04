@@ -18,6 +18,7 @@ export interface Current {
   visibility: number | null;
   pressure: number | null;
   weather: Weather[];
+  temp: string;
 }
 
 export interface Forecast {

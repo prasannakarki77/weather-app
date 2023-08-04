@@ -78,27 +78,30 @@ const Searchbar = () => {
                 code={city.country}
                 lat={city.lat}
                 lon={city.lon}
+                setSearchOpen={setSearchOpen}
               />
             ))}
           </div>
         </div>
       ) : (
-        <button
-          className="btn btn-active btn-neutral w-full"
-          onClick={handleSearchOpen}
-        >
-          Search for places
-        </button>
-      )}
-
-      <div>{current?.weather[0].main}</div>
-      {current?.weather[0].icon && (
-        <Image
-          src={`http://openweathermap.org/img/wn/${current?.weather[0].icon}@2x.png`}
-          alt={"icon"}
-          height={200}
-          width={200}
-        />
+        <div className="flex gap-3 flex-col justify-center items-center ">
+          <button
+            className="btn btn-active btn-neutral w-full"
+            onClick={handleSearchOpen}
+          >
+            Search for places
+          </button>
+          {current?.weather[0].icon && (
+            <Image
+              src={`http://openweathermap.org/img/wn/${current?.weather[0].icon}@2x.png`}
+              alt={"icon"}
+              height={200}
+              width={200}
+            />
+          )}
+          <span className=" text-6xl">{current?.temp} °C</span>
+          <div>{current?.weather[0].main}</div>
+        </div>
       )}
 
       <div className="flex items-center gap-1 justify-center">
