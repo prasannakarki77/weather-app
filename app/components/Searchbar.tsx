@@ -2,18 +2,23 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import SearchResult from "./SearchResult";
-import { getWeatherByLocation } from "../actions/weather";
 import { WeatherContext } from "../context/WeatherContext";
-
+import { MdLocationOn } from "react-icons/md";
 const Searchbar = () => {
-  const [searchOpen, setSearhOpen] = useState(false);
-  const { setCity, city, getLatLng, searchResults } =
-    useContext(WeatherContext);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const {
+    setCity,
+    city,
+    getLatLng,
+    searchResults,
+    selectedPlace,
+    getLocationWeather,
+  } = useContext(WeatherContext);
   const handleSearchClose = () => {
-    setSearhOpen(false);
+    setSearchOpen(false);
   };
   const handleSearchOpen = () => {
-    setSearhOpen(true);
+    setSearchOpen(true);
   };
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -21,12 +26,12 @@ const Searchbar = () => {
   };
 
   useEffect(() => {
-    getLatLng("Bhaktapur");
+    getLocationWeather(27.708317, 85.3205817, "Kathmandu");
     console.log(searchResults);
   }, []);
 
   return (
-    <div className=" lg:w-[460px] h-full text-white bg-[#1E213A] p-4 flex justify-center ">
+    <div className=" lg:w-[460px] h-full text-white bg-[#1E213A] p-4 flex justify-between flex-col ">
       {searchOpen ? (
         <div className="flex flex-col w-full gap-3 ">
           <div className=" w-full flex justify-end mb-3">
@@ -69,6 +74,8 @@ const Searchbar = () => {
                 place={city.name}
                 key={city.lat}
                 code={city.country}
+                lat={city.lat}
+                lon={city.lon}
               />
             ))}
           </div>
@@ -81,6 +88,9 @@ const Searchbar = () => {
           Search for places
         </button>
       )}
+      <div className="flex items-center gap-1 justify-center">
+        <MdLocationOn /> {selectedPlace}
+      </div>
     </div>
   );
 };
