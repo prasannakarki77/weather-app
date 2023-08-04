@@ -5,6 +5,7 @@ import Image from "next/image";
 import SearchResult from "./SearchResult";
 import { WeatherContext } from "../context/WeatherContext";
 import { MdLocationOn } from "react-icons/md";
+import { fDate } from "../utils/formatTime";
 const Searchbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const {
@@ -101,6 +102,9 @@ const Searchbar = () => {
           )}
           <span className=" text-6xl">{current?.temp} °C</span>
           <div>{current?.weather[0].main}</div>
+          <div className="">
+            Today - {fDate(Date.now())}, {new Date().getDay()}
+          </div>
         </div>
       )}
 
