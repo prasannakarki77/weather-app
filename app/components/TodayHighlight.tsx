@@ -6,7 +6,7 @@ interface Props {
 }
 
 const TodayHighlight: React.FC<Props> = ({ current }) => {
-  const { wind, humidity, pressure, visibility } = current;
+  const { pressure_mb, vis_miles, wind_mph, wind_degree, humidity } = current;
   return (
     <div className="mt-10">
       <h1 className="text-white text-xl mb-6">Today&apos;s Highlight</h1>
@@ -14,7 +14,7 @@ const TodayHighlight: React.FC<Props> = ({ current }) => {
         <div className=" bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
           <h3>Wind status</h3>
           <p className=" text-xl">
-            <span className=" text-6xl">{wind?.speed}</span>mph{" "}
+            <span className=" text-6xl">{wind_mph}</span>mph{" "}
           </p>
         </div>
         <div className=" bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
@@ -26,13 +26,13 @@ const TodayHighlight: React.FC<Props> = ({ current }) => {
         <div className=" bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
           <h3>Visibility</h3>
           <p className=" text-xl">
-            <span className=" text-6xl">{visibility}</span> m{" "}
+            <span className=" text-6xl">{vis_miles}</span> miles{" "}
           </p>
         </div>
         <div className=" bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
           <h3>Air Pressure</h3>
           <p className=" text-xl">
-            <span className=" text-6xl">{pressure}</span>mb{" "}
+            <span className=" text-6xl">{pressure_mb}</span>mb{" "}
           </p>
         </div>
       </div>
