@@ -66,7 +66,11 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
       const res = await axios.get(
         `https://api.weatherapi.com/v1/forecast.json?q=${city}&days=6&key=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`
       );
-      setWeather(res.data);
+      setWeather({
+        current: res.data.current,
+        forecast: res.data.forecast.forecastday,
+        location: res.data.location,
+      });
     } catch (err) {
       console.log(err);
     }

@@ -5,11 +5,12 @@ import TodayHighlight from "./TodayHighlight";
 import { WeatherContext } from "../context/WeatherContext";
 
 const Container = () => {
-  const { current } = useContext(WeatherContext);
+  const { weather } = useContext(WeatherContext);
+  console.log(weather?.forecast);
   return (
     <div className=" p-8 mx-auto">
-      <WeatherForecast />
-      {current && <TodayHighlight current={current} />}
+      {weather?.forecast && <WeatherForecast forecast={weather.forecast} />}
+      {weather?.current && <TodayHighlight current={weather.current} />}
     </div>
   );
 };
