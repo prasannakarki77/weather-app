@@ -11,7 +11,7 @@ import {
 type InputValue = Date | string | number | null;
 
 export function fDate(date: InputValue, newFormat?: string) {
-  const fm = newFormat || "dd MMM yyyy";
+  const fm = newFormat || "eeee, dd MMM ";
 
   return date ? format(new Date(date), fm) : "";
 }
