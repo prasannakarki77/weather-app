@@ -8,7 +8,7 @@ import { MdLocationOn } from "react-icons/md";
 import { fDate } from "../utils/formatTime";
 const Searchbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
-  const { setCity, city, current, getCitiesByName, searchResults } =
+  const { setCity, city, weather, getCitiesByName, searchResults, getWeather } =
     useContext(WeatherContext);
   const handleSearchClose = () => {
     setSearchOpen(false);
@@ -69,6 +69,7 @@ const Searchbar = () => {
                 key={city}
                 city={city}
                 setSearchOpen={setSearchOpen}
+                onClick={getWeather}
               />
             ))}
           </div>
@@ -81,24 +82,26 @@ const Searchbar = () => {
           >
             Search for places
           </button>
-          {current?.weather[0].icon && (
+          {weather?.current.condition.icon && (
             <Image
-              src={`http://openweathermap.org/img/wn/${current?.weather[0].icon}@2x.png`}
+              src={"http:" + weather?.current.condition.icon}
               alt={"icon"}
               height={200}
               width={200}
             />
           )}
-          <span className=" text-6xl">{current?.temp} °C</span>
-          <div>{current?.weather[0].main}</div>
+          <span className=" text-6xl">{weather?.current.temp_c} °C</span>
+          <div>{weather?.current.condition.text}</div>
           <div className="">
-            Today - {fDate(Date.now())}, {new Date().getDay()}
+            Today -{" "}
+            {weather?.current.last_updated &&
+              fDate(new Date(weather?.current.last_updated))}
           </div>
         </div>
       )}
 
       <div className="flex items-center gap-1 justify-center">
-        {/* <MdLocationOn /> {current.location.name} */}
+        <MdLocationOn /> {weather?.location.name}
       </div>
     </div>
   );

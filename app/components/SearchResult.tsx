@@ -3,13 +3,18 @@ import { WeatherContext } from "../context/WeatherContext";
 
 interface SearchResultProps {
   city: string;
-
   setSearchOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onClick: (city: string) => Promise<void>;
 }
 
-const SearchResult: React.FC<SearchResultProps> = ({ city, setSearchOpen }) => {
+const SearchResult: React.FC<SearchResultProps> = ({
+  city,
+  setSearchOpen,
+  onClick,
+}) => {
   const handleCityClick = () => {
     setSearchOpen(false);
+    onClick(city);
   };
   return (
     <div

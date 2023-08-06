@@ -93,5 +93,5 @@ export interface WeatherContextProps {
   weather: Weather | null;
   getCitiesByName: (city: string) => Promise<void>;
   searchResults: string[];
-  getWeatherForecast: (city: string) => Promise<void>;
+  getWeather: (city: string) => Promise<void>;
 }

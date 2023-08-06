@@ -1,16 +1,20 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { Current, WeatherContextProps } from "../types/WeatherContextType";
+import {
+  Current,
+  Weather,
+  WeatherContextProps,
+} from "../types/WeatherContextType";
 import axios from "axios";
 
 export const WeatherContext = createContext<WeatherContextProps>({
   city: "Kathmandu",
   setCity: () => {},
-  current: null,
+  weather: null,
   getCitiesByName: async () => {},
   searchResults: [],
-  getWeatherForecast: async (lat: number, lon: number) => {},
+  getWeather: async () => {},
 });
 
 interface WeatherProviderProps {
@@ -19,7 +23,7 @@ interface WeatherProviderProps {
 
 export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [city, setCity] = useState("Kathmandu");
-  const [current, setCurrent] = useState<Current | null>(null);
+  const [weather, setWeather] = useState<Weather | null>(null);
   const [searchResults, setsearchResults] = useState<string[] | []>([]);
   const getCitiesByName = async (city: string) => {
     setsearchResults([]);
@@ -57,19 +61,24 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     setsearchResults(cities);
   };
 
-  const getWeatherForecast = async (
-    lat: number,
-    lon: number,
-    city: string
-  ) => {};
+  const getWeather = async (city: string) => {
+    try {
+      const res = await axios.get(
+        `https://api.weatherapi.com/v1/forecast.json?q=${city}&days=6&key=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`
+      );
+      setWeather(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const value = {
     city,
     setCity,
-    current,
+    weather,
     getCitiesByName,
     searchResults,
-    getWeatherForecast,
+    getWeather,
   };
   return (
     <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>
