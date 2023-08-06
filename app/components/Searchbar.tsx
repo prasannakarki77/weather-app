@@ -8,15 +8,8 @@ import { MdLocationOn } from "react-icons/md";
 import { fDate } from "../utils/formatTime";
 const Searchbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
-  const {
-    setCity,
-    city,
-    current,
-    getCitiesByName,
-    searchResults,
-    selectedPlace,
-    getLocationWeather,
-  } = useContext(WeatherContext);
+  const { setCity, city, current, getCitiesByName, searchResults } =
+    useContext(WeatherContext);
   const handleSearchClose = () => {
     setSearchOpen(false);
   };
@@ -29,7 +22,6 @@ const Searchbar = () => {
   };
 
   useEffect(() => {
-    getLocationWeather(27.708317, 85.3205817, "Kathmandu");
     console.log(searchResults);
   }, []);
 
@@ -106,7 +98,7 @@ const Searchbar = () => {
       )}
 
       <div className="flex items-center gap-1 justify-center">
-        <MdLocationOn /> {selectedPlace}
+        {/* <MdLocationOn /> {current.location.name} */}
       </div>
     </div>
   );

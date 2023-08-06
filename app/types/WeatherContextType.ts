@@ -32,10 +32,5 @@ export interface WeatherContextProps {
   current: Current | null;
   getCitiesByName: (city: string) => Promise<void>;
   searchResults: string[];
-  getLocationWeather: (lat: number, lon: number, city: string) => Promise<void>;
-  selectedPlace: string;
   getWeatherForecast: (lat: number, lon: number, city: string) => Promise<void>;
-  // forecast: Forecast[] | null;
-  // fetchCurrentWeather: () => undefined;
-  // fetchWeatherForecast: () => undefined;
 }
