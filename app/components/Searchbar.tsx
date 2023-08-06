@@ -12,7 +12,7 @@ const Searchbar = () => {
     setCity,
     city,
     current,
-    getLatLng,
+    getCitiesByName,
     searchResults,
     selectedPlace,
     getLocationWeather,
@@ -65,20 +65,17 @@ const Searchbar = () => {
             <button
               className="btn btn-primary"
               type="submit"
-              onClick={() => getLatLng(city)}
+              onClick={() => getCitiesByName(city)}
             >
               {/* <span className="loading loading-spinner"></span> */}
               Search
             </button>
           </form>
-          <div className="flex flex-col gap-3 mt-5">
+          <div className="flex flex-col gap-3 mt-5 ">
             {searchResults.map((city) => (
               <SearchResult
-                place={city.name}
-                key={city.lat}
-                code={city.country}
-                lat={city.lat}
-                lon={city.lon}
+                key={city}
+                city={city}
                 setSearchOpen={setSearchOpen}
               />
             ))}

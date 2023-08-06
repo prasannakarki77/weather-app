@@ -1,17 +1,14 @@
 "use client";
 
 import { Dispatch, SetStateAction, createContext, useState } from "react";
-import {
-  CitySearchResult,
-  Current,
-  WeatherContextProps,
-} from "../types/WeatherContextType";
+import { Current, WeatherContextProps } from "../types/WeatherContextType";
+import axios from "axios";
 
 export const WeatherContext = createContext<WeatherContextProps>({
   city: "Kathmandu",
   setCity: () => {},
   current: null,
-  getLatLng: async () => {},
+  getCitiesByName: async () => {},
   searchResults: [],
   getLocationWeather: async (lat: number, lon: number) => {},
   selectedPlace: "",
@@ -26,67 +23,60 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [city, setCity] = useState("Kathmandu");
   const [selectedPlace, setSelectedPlace] = useState("");
   const [current, setCurrent] = useState<Current | null>(null);
-  const [searchResults, setsearchResults] = useState<CitySearchResult[] | []>(
-    []
-  );
-  const getLatLng = async (city: string) => {
-    const res = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${process.env.NEXT_PUBLIC_API_KEY}`
-    );
-    const data = await res.json();
-    if (!data) {
-      setsearchResults([]);
-      return;
-    }
-    console.log(data);
-    // Filter out duplicate data based on name and country
-    const filteredData = data.filter(
-      (result: any, index: number, self: any[]) =>
-        self.findIndex(
-          (r: any) => r.name === result.name && r.country === result.country
-        ) === index
-    );
+  const [searchResults, setsearchResults] = useState<string[] | []>([]);
+  const getCitiesByName = async (city: string) => {
+    const cities: string[] = [];
+    const headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
 
-    // Transform the filtered data to the desired format
-    const transformedData = filteredData.map((result: any) => ({
-      name: result.name,
-      lat: result.lat,
-      lon: result.lon,
-      country: result.country,
-    }));
-
-    setsearchResults(transformedData);
-  };
-
-  const getLocationWeather = async (lat: number, lon: number, city: string) => {
-    const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_API_KEY}&units=imperial`
-    );
-    const data = await res.json();
-    setSelectedPlace(city);
-    setCurrent({
-      wind: data.wind,
-      humidity: data.main.humidity,
-      pressure: data.main.pressure,
-      visibility: data.visibility,
-      weather: data.weather,
-      temp: data.main.temp,
+    // Create the data to be sent in the request body as URL-encoded form data
+    const data = new URLSearchParams({
+      grant_type: "client_credentials",
+      client_id: process.env.NEXT_PUBLIC_LOCATION_API_KEY as string,
+      client_secret: process.env.NEXT_PUBLIC_LOCATION_API_SECRET as string,
     });
-    getWeatherForecast(lat, lon, city);
+    try {
+      const res = await axios.post(
+        "https://test.api.amadeus.com/v1/security/oauth2/token",
+        data,
+        { headers }
+      );
+      if (res) {
+        const cityResponse = await axios.get(
+          `https://test.api.amadeus.com/v1/reference-data/locations/cities?keyword=${city}&max=5`,
+
+          { headers: { Authorization: `Bearer ${res.data.access_token} ` } }
+        );
+        cityResponse.data.data.map((cityData: { name: any }) => {
+          cities.push(cityData.name);
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    setsearchResults(cities);
+
+    console.log(cities);
   };
-  const getWeatherForecast = async (lat: number, lon: number, city: string) => {
-    const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_API_KEY}&cnt=5`
-    );
-    const data = await res.json();
-    console.log(data);
-  };
+
+  const getLocationWeather = async (
+    lat: number,
+    lon: number,
+    city: string
+  ) => {};
+  const getWeatherForecast = async (
+    lat: number,
+    lon: number,
+    city: string
+  ) => {};
 
   const value = {
     city,
     setCity,
     current,
-    getLatLng,
+    getCitiesByName,
     searchResults,
     getLocationWeather,
     getWeatherForecast,

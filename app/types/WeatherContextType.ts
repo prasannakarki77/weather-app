@@ -26,19 +26,12 @@ export interface Forecast {
   temp: number | null;
 }
 
-export interface CitySearchResult {
-  name: string;
-  lat: number;
-  lon: number;
-  country: string;
-}
-
 export interface WeatherContextProps {
   city: string;
   setCity: Dispatch<SetStateAction<string>>;
   current: Current | null;
-  getLatLng: (city: string) => Promise<void>;
-  searchResults: CitySearchResult[] | [];
+  getCitiesByName: (city: string) => Promise<void>;
+  searchResults: string[];
   getLocationWeather: (lat: number, lon: number, city: string) => Promise<void>;
   selectedPlace: string;
   getWeatherForecast: (lat: number, lon: number, city: string) => Promise<void>;
