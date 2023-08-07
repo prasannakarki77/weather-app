@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap");
-
 body {
-  @apply bg-[#100E1D] font-raleway;
+  @apply bg-[#100E1D];
   font-family: "Raleway", sans-serif !important;
 }
