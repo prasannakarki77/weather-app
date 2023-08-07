@@ -9,7 +9,7 @@ interface Props {
 const WeatherCard: React.FC<Props> = ({ forecast }) => {
   const { day, date } = forecast;
   return (
-    <div className=" bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
+    <div className="card  shadow-xl bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
       <p className="text-white text-md">{fDate(date)}</p>
       <Image
         src={"http:" + day.condition.icon}
