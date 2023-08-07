@@ -107,7 +107,8 @@ const Searchbar = () => {
       )}
 
       <div className="flex items-center gap-1 font-semibold  text-gray-400 justify-center">
-        <MdLocationOn size={20} /> {weather?.location.name}
+        <MdLocationOn size={20} /> {weather?.location.name},{" "}
+        {weather?.location.country}
       </div>
     </div>
   );
