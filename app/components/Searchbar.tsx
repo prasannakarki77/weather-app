@@ -26,7 +26,7 @@ const Searchbar = () => {
   }, []);
 
   return (
-    <div className=" lg:w-[460px] h-full text-white bg-[#1E213A] p-4 flex justify-between flex-col ">
+    <div className=" lg:w-[460px] h-full text-white bg-[#1E213A] p-4 flex justify-between flex-col py-7 ">
       {searchOpen ? (
         <div className="flex flex-col w-full gap-3 ">
           <div className=" w-full flex justify-end mb-3">
@@ -75,33 +75,39 @@ const Searchbar = () => {
           </div>
         </div>
       ) : (
-        <div className="flex gap-3 flex-col justify-center items-center ">
+        <div className="flex gap-12 flex-col justify-between items-center ">
           <button
             className="btn btn-active btn-neutral w-full"
             onClick={handleSearchOpen}
           >
             Search for places
           </button>
-          {weather?.current.condition.icon && (
-            <Image
-              src={"http:" + weather?.current.condition.icon}
-              alt={"icon"}
-              height={200}
-              width={200}
-            />
-          )}
+          <div className=" w-full h-full bg-weather-background bg-contain bg-center bg-no-repeat bg-opacity-50 flex justify-center">
+            {weather?.current.condition.icon && (
+              <Image
+                src={"http:" + weather?.current.condition.icon}
+                alt={"icon"}
+                height={200}
+                width={200}
+              />
+            )}
+          </div>
+          <div />
+
           <span className=" text-6xl">{weather?.current.temp_c} °C</span>
-          <div>{weather?.current.condition.text}</div>
-          <div className="">
-            Today -{" "}
+          <div className="text-4xl text-gray-300">
+            {weather?.current.condition.text}
+          </div>
+          <div className=" font-semibold  text-gray-400">
+            Today ·{" "}
             {weather?.current.last_updated &&
               fDate(new Date(weather?.current.last_updated))}
           </div>
         </div>
       )}
 
-      <div className="flex items-center gap-1 justify-center">
-        <MdLocationOn /> {weather?.location.name}
+      <div className="flex items-center gap-1 font-semibold  text-gray-400 justify-center">
+        <MdLocationOn size={20} /> {weather?.location.name}
       </div>
     </div>
   );

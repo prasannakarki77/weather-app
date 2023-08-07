@@ -18,8 +18,8 @@ const WeatherCard: React.FC<Props> = ({ forecast }) => {
         height={40}
       />
       <div className="flex gap-4">
-        <span className="font-raleway">{day.avgtemp_c} C</span>
-        <span>{day.avgtemp_f} F</span>
+        <span className="font-raleway">{day.mintemp_c} °C</span>
+        <span>{day.maxtemp_c} °C</span>
       </div>
     </div>
   );

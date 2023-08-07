@@ -20,19 +20,18 @@ const TodayHighlight: React.FC<Props> = ({ current }) => {
       <div className=" text-white grid grid-cols-2  gap-8">
         <div className=" card  shadow-xl bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
           <h3>Wind status</h3>
-          <p className=" text-xl">
-            <span className=" text-6xl">{wind_mph}</span>mph{" "}
+          <p className=" text-4xl">
+            <span className=" text-6xl">{wind_mph}</span> mph{" "}
           </p>
           <div className="flex gap-2 items-center justify-center">
             <MdAssistantNavigation size={40} style={iconRotationStyle} />
-
             <p>{wind_dir}</p>
           </div>
         </div>
         <div className=" card  shadow-xl bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
           <h3>Humidity</h3>
-          <p className=" text-xl">
-            <span className=" text-6xl">{humidity}</span>%{" "}
+          <p className=" text-4xl">
+            <span className=" text-6xl">{humidity}</span> %{" "}
           </p>
           <div className="flex gap-1 items-center flex-col ">
             <div className="flex justify-between  w-full text-gray-400 font-semibold">
@@ -50,14 +49,14 @@ const TodayHighlight: React.FC<Props> = ({ current }) => {
         </div>
         <div className="card  shadow-xl bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
           <h3>Visibility</h3>
-          <p className=" text-xl">
+          <p className=" text-4xl">
             <span className=" text-6xl">{vis_miles}</span> miles{" "}
           </p>
         </div>
         <div className=" card  shadow-xl bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
           <h3>Air Pressure</h3>
-          <p className=" text-xl">
-            <span className=" text-6xl">{pressure_mb}</span>mb{" "}
+          <p className=" text-4xl">
+            <span className=" text-6xl">{pressure_mb}</span> mb{" "}
           </p>
         </div>
       </div>
