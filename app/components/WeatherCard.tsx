@@ -14,8 +14,8 @@ const WeatherCard: React.FC<Props> = ({ forecast }) => {
       <Image
         src={"http:" + day.condition.icon}
         alt="icon_weather"
-        width={40}
-        height={40}
+        width={80}
+        height={80}
       />
       <div className="flex gap-4">
         <span className="font-raleway">{day.mintemp_c} °C</span>

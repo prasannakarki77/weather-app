@@ -26,7 +26,7 @@ const Searchbar = () => {
   }, []);
 
   return (
-    <div className=" lg:w-[460px] h-full text-white bg-[#1E213A] p-4 flex justify-between flex-col py-7 ">
+    <div className=" lg:w-[460px] text-white bg-[#1E213A] p-4 flex justify-between flex-col py-7  ">
       {searchOpen ? (
         <div className="flex flex-col w-full gap-3 ">
           <div className=" w-full flex justify-end mb-3">

@@ -17,7 +17,7 @@ const TodayHighlight: React.FC<Props> = ({ current }) => {
   return (
     <div className="mt-10">
       <h1 className="text-white text-xl mb-6">Today&apos;s Highlight</h1>
-      <div className=" text-white grid grid-cols-2  gap-8">
+      <div className=" text-white grid sm:grid-cols-2  gap-8 grid-cols-1 ">
         <div className=" card  shadow-xl bg-custom-secondary p-4 flex flex-col justify-center gap-3  items-center">
           <h3>Wind status</h3>
           <p className=" text-4xl">

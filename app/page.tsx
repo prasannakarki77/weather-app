@@ -5,7 +5,7 @@ import { WeatherProvider } from "./context/WeatherContext";
 export default function Home() {
   return (
     <WeatherProvider>
-      <main className=" flex h-screen ">
+      <main className="flex items-stretch  md:flex-row flex-col">
         <Searchbar />
         <Container />
       </main>
