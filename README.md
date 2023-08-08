@@ -24,3 +24,8 @@
 - Weather forecast for next 5 days
 - Weather condition icons, wind direction and humidity indicators.
 - Toggle bettween temperature format of Celsius and Farenheit
+
+## APIs
+
+- [Amadeus](https://developers.amadeus.com/self-service/category/destination-experiences/api-doc/city-search) - City search
+- [WeatherAPI](https://www.weatherapi.com/) - Current weather and Forecast for next 5 days
