@@ -2,6 +2,7 @@
 
 import { createContext, useState } from "react";
 import {
+  CitySearchResult,
   Current,
   Weather,
   WeatherContextProps,
@@ -27,11 +28,13 @@ interface WeatherProviderProps {
 export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [city, setCity] = useState("Kathmandu");
   const [weather, setWeather] = useState<Weather | null>(null);
-  const [searchResults, setsearchResults] = useState<string[] | []>([]);
+  const [searchResults, setsearchResults] = useState<CitySearchResult[] | []>(
+    []
+  );
   const [tempFormat, setTempFormat] = useState(temp.celsius);
   const getCitiesByName = async (city: string) => {
     setsearchResults([]);
-    const cities: string[] = [];
+    const cities: CitySearchResult[] = [];
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded",
     };
@@ -55,8 +58,11 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
 
         { headers: { Authorization: `Bearer ${res.data.access_token} ` } }
       );
-      cityResponse.data.data.map((cityData: { name: any }) => {
-        cities.push(cityData.name);
+      cityResponse.data.data.map((cityData: { name: any; address: any }) => {
+        cities.push({
+          name: cityData.name,
+          countryCode: cityData.address.countryCode,
+        });
       });
     } catch (err) {
       console.log(err);

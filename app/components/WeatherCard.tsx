@@ -22,12 +22,16 @@ const WeatherCard: React.FC<Props> = ({ forecast, tempFormat }) => {
         height={80}
       />
       <div className="flex gap-4">
-        <span className="font-raleway">
+        <span className="text-white">
+          {tempFormat === temp.fahrenheit
+            ? `${day.maxtemp_f} °F`
+            : `${day.maxtemp_c} °C`}
+        </span>
+        <span>
           {tempFormat === temp.fahrenheit
             ? `${day.mintemp_f} °F`
             : `${day.mintemp_c} °C`}
         </span>
-        <span>{day.maxtemp_c} °C</span>
       </div>
     </div>
   );

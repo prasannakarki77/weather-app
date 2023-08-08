@@ -74,8 +74,9 @@ const Searchbar = () => {
           <div className="flex flex-col gap-3 mt-5 ">
             {searchResults.map((city) => (
               <SearchResult
-                key={city}
-                city={city}
+                key={city.countryCode}
+                city={city.name}
+                countryCode={city.countryCode}
                 setSearchOpen={setSearchOpen}
                 onClick={getWeather}
               />
@@ -101,13 +102,16 @@ const Searchbar = () => {
             )}
           </div>
           <div />
-
-          <span className=" text-7xl text-white font-semibold ">
-            {weather?.current &&
-              (tempFormat === temp.fahrenheit
-                ? `${weather.current.temp_f}°F`
-                : `${weather.current.temp_c}°C`)}
-          </span>
+          <div className="flex items-end gap-1 justify-center">
+            <span className=" text-7xl text-white font-semibold ">
+              {tempFormat === temp.fahrenheit
+                ? weather?.current.temp_f
+                : weather?.current.temp_c}
+            </span>
+            <span className="text-4xl font-semibold">
+              {tempFormat === temp.fahrenheit ? "°F" : "°C"}
+            </span>
+          </div>
           <div className="text-3xl text-gray-300 text-center">
             {weather?.current.condition.text}
           </div>

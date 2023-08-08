@@ -84,8 +84,13 @@ export interface WeatherContextProps {
   setCity: Dispatch<SetStateAction<string>>;
   weather: Weather | null;
   getCitiesByName: (city: string) => Promise<void>;
-  searchResults: string[];
+  searchResults: CitySearchResult[];
   getWeather: (city: string) => Promise<void>;
   tempFormat: temp.celsius | temp.fahrenheit;
   setTempFormat: Dispatch<SetStateAction<temp>>;
+}
+
+export interface CitySearchResult {
+  name: string;
+  countryCode: string;
 }
