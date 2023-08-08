@@ -29,10 +29,6 @@ const Searchbar = () => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    console.log(searchResults);
-  }, []);
-
   return (
     <div className=" lg:w-[460px]  bg-[#1E213A] p-4 flex justify-between flex-col py-7  ">
       {searchOpen ? (
@@ -67,7 +63,6 @@ const Searchbar = () => {
               type="submit"
               onClick={() => getCitiesByName(city)}
             >
-              {/* <span className="loading loading-spinner"></span> */}
               Search
             </button>
           </form>

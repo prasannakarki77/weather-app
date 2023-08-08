@@ -8,7 +8,6 @@ import { temp } from "../types/temperature";
 const Container = () => {
   const { weather, getWeather, city, setTempFormat, tempFormat } =
     useContext(WeatherContext);
-  console.log(weather?.forecast);
   useEffect(() => {
     getWeather(city);
   }, []);
