@@ -7,6 +7,7 @@ import {
   WeatherContextProps,
 } from "../types/WeatherContextType";
 import axios from "axios";
+import { temp } from "../types/temperature";
 
 export const WeatherContext = createContext<WeatherContextProps>({
   city: "Kathmandu",
@@ -15,6 +16,7 @@ export const WeatherContext = createContext<WeatherContextProps>({
   getCitiesByName: async () => {},
   searchResults: [],
   getWeather: async () => {},
+  tempFormat: temp.celsius,
 });
 
 interface WeatherProviderProps {
@@ -25,6 +27,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [city, setCity] = useState("Kathmandu");
   const [weather, setWeather] = useState<Weather | null>(null);
   const [searchResults, setsearchResults] = useState<string[] | []>([]);
+  const [tempFormat, settempFormat] = useState(temp.celsius);
   const getCitiesByName = async (city: string) => {
     setsearchResults([]);
     const cities: string[] = [];
@@ -83,6 +86,8 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     getCitiesByName,
     searchResults,
     getWeather,
+    tempFormat,
+    settempFormat,
   };
   return (
     <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>

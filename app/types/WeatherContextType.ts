@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { temp } from "./temperature";
 
 export interface Current {
   last_updated_epoch: number;
@@ -85,4 +86,5 @@ export interface WeatherContextProps {
   getCitiesByName: (city: string) => Promise<void>;
   searchResults: string[];
   getWeather: (city: string) => Promise<void>;
+  tempFormat: temp.celsius | temp.fahrenheit;
 }
