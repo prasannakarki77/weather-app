@@ -17,6 +17,7 @@ export const WeatherContext = createContext<WeatherContextProps>({
   searchResults: [],
   getWeather: async () => {},
   tempFormat: temp.celsius,
+  setTempFormat: () => {},
 });
 
 interface WeatherProviderProps {
@@ -27,7 +28,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [city, setCity] = useState("Kathmandu");
   const [weather, setWeather] = useState<Weather | null>(null);
   const [searchResults, setsearchResults] = useState<string[] | []>([]);
-  const [tempFormat, settempFormat] = useState(temp.celsius);
+  const [tempFormat, setTempFormat] = useState(temp.celsius);
   const getCitiesByName = async (city: string) => {
     setsearchResults([]);
     const cities: string[] = [];
@@ -87,7 +88,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     searchResults,
     getWeather,
     tempFormat,
-    settempFormat,
+    setTempFormat,
   };
   return (
     <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>

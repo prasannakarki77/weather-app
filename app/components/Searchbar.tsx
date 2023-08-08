@@ -6,10 +6,18 @@ import SearchResult from "./SearchResult";
 import { WeatherContext } from "../context/WeatherContext";
 import { MdLocationOn } from "react-icons/md";
 import { fDate } from "../utils/formatTime";
+import { temp } from "../types/temperature";
 const Searchbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
-  const { setCity, city, weather, getCitiesByName, searchResults, getWeather } =
-    useContext(WeatherContext);
+  const {
+    setCity,
+    city,
+    weather,
+    getCitiesByName,
+    searchResults,
+    getWeather,
+    tempFormat,
+  } = useContext(WeatherContext);
   const handleSearchClose = () => {
     setSearchOpen(false);
   };
@@ -26,7 +34,7 @@ const Searchbar = () => {
   }, []);
 
   return (
-    <div className=" lg:w-[460px] text-white bg-[#1E213A] p-4 flex justify-between flex-col py-7  ">
+    <div className=" lg:w-[460px]  bg-[#1E213A] p-4 flex justify-between flex-col py-7  ">
       {searchOpen ? (
         <div className="flex flex-col w-full gap-3 ">
           <div className=" w-full flex justify-end mb-3">
@@ -75,7 +83,7 @@ const Searchbar = () => {
           </div>
         </div>
       ) : (
-        <div className="flex gap-12 flex-col justify-between items-center ">
+        <div className="flex gap-11 flex-col justify-between items-center ">
           <button
             className="btn btn-active btn-neutral w-full"
             onClick={handleSearchOpen}
@@ -94,8 +102,13 @@ const Searchbar = () => {
           </div>
           <div />
 
-          <span className=" text-6xl">{weather?.current.temp_c} °C</span>
-          <div className="text-4xl text-gray-300">
+          <span className=" text-7xl text-white font-semibold ">
+            {weather?.current &&
+              (tempFormat === temp.fahrenheit
+                ? `${weather.current.temp_f}°F`
+                : `${weather.current.temp_c}°C`)}
+          </span>
+          <div className="text-3xl text-gray-300 text-center">
             {weather?.current.condition.text}
           </div>
           <div className=" font-semibold  text-gray-400">
@@ -106,7 +119,7 @@ const Searchbar = () => {
         </div>
       )}
 
-      <div className="flex items-center gap-1 font-semibold  text-gray-400 justify-center">
+      <div className="flex items-center gap-1 font-semibold  text-gray-400 justify-center mt-4">
         <MdLocationOn size={20} /> {weather?.location.name},{" "}
         {weather?.location.country}
       </div>

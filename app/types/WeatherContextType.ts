@@ -87,4 +87,5 @@ export interface WeatherContextProps {
   searchResults: string[];
   getWeather: (city: string) => Promise<void>;
   tempFormat: temp.celsius | temp.fahrenheit;
+  setTempFormat: Dispatch<SetStateAction<temp>>;
 }
