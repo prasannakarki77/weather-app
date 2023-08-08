@@ -15,16 +15,18 @@ const Container = () => {
     <div className=" p-8 mx-auto">
       <div className="flex justify-end gap-2 mb-6 cursor-pointer ">
         <div
-          className={`flex items-center justify-center w-10 h-10 transition bg-gray-500  rounded-full text-white text-xl font-bold ${
-            tempFormat === temp.celsius && " bg-white text-black "
+          className={`flex items-center justify-center w-10 h-10 transition  bg-gray-500 rounded-full  text-xl font-bold ${
+            tempFormat === temp.celsius ? " bg-white text-black " : "text-white"
           }`}
           onClick={() => setTempFormat(temp.celsius)}
         >
           °C
         </div>
         <div
-          className={`flex items-center justify-center w-10 h-10 transition   bg-gray-500 rounded-full text-white text-xl font-bold ${
-            tempFormat === temp.fahrenheit && " bg-white text-black "
+          className={`flex items-center justify-center w-10 h-10 transition   bg-gray-500 rounded-full text-xl font-bold ${
+            tempFormat === temp.fahrenheit
+              ? "bg-white text-black "
+              : "text-white"
           }`}
           onClick={() => setTempFormat(temp.fahrenheit)}
         >
