@@ -33,7 +33,18 @@ const Container = () => {
           °F
         </div>
       </div>
-      {weather?.forecast && <WeatherForecast forecast={weather.forecast} />}
+      {weather?.forecast ? (
+        <WeatherForecast forecast={weather.forecast} />
+      ) : (
+        <div className=" grid md:grid-cols-5 gap-4 grid-cols-2 ">
+          {Array.from({ length: 5 }, (_, index) => (
+            <div
+              className=" animate-pulse  bg-slate-400 rounded-lg grid md:grid-cols-5 gap-4 grid-cols-2 w-36 h-44 "
+              key={index}
+            ></div>
+          ))}
+        </div>
+      )}
       {weather?.current && <TodayHighlight current={weather.current} />}
     </div>
   );
