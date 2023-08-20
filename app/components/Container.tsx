@@ -39,13 +39,24 @@ const Container = () => {
         <div className=" grid md:grid-cols-5 gap-4 grid-cols-2 ">
           {Array.from({ length: 5 }, (_, index) => (
             <div
-              className=" animate-pulse  bg-slate-400 rounded-lg grid md:grid-cols-5 gap-4 grid-cols-2 w-36 h-44 "
+              className=" animate-pulse  bg-slate-400 rounded-lg grid  w-36 h-44 "
               key={index}
             ></div>
           ))}
         </div>
       )}
-      {weather?.current && <TodayHighlight current={weather.current} />}
+      {weather?.current ? (
+        <TodayHighlight current={weather.current} />
+      ) : (
+        <div className="mt-10 grid sm:grid-cols-2  gap-8 grid-cols-1 ">
+          {Array.from({ length: 4 }, (_, index) => (
+            <div
+              className=" animate-pulse  bg-slate-400 rounded-lg w-full h-44 "
+              key={index}
+            ></div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
