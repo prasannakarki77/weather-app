@@ -86,41 +86,62 @@ const Searchbar = () => {
           >
             Search for places
           </button>
-          <div className=" w-full h-full bg-weather-background bg-contain bg-center bg-no-repeat bg-opacity-50 flex justify-center">
-            {weather?.current.condition.icon && (
+          <div className=" min-w-full h-full bg-weather-background bg-contain bg-center bg-no-repeat bg-opacity-50 flex justify-center">
+            {weather?.current.condition.icon ? (
               <Image
                 src={"http:" + weather?.current.condition.icon}
                 alt={"icon"}
                 height={200}
                 width={200}
               />
+            ) : (
+              <div className=" animate-pulse w-60 h-52  rounded-full opacity-0"></div>
             )}
           </div>
           <div />
           <div className="flex items-end gap-1 justify-center">
             <span className=" text-7xl text-white font-semibold ">
-              {tempFormat === temp.fahrenheit
-                ? weather?.current.temp_f
-                : weather?.current.temp_c}
+              {weather ? (
+                tempFormat === temp.fahrenheit ? (
+                  weather.current.temp_f
+                ) : (
+                  weather.current.temp_c
+                )
+              ) : (
+                <div className=" animate-pulse  w-14 h-10 bg-slate-400 rounded-lg "></div>
+              )}
             </span>
             <span className="text-4xl font-semibold">
               {tempFormat === temp.fahrenheit ? "°F" : "°C"}
             </span>
           </div>
           <div className="text-3xl text-gray-300 text-center">
-            {weather?.current.condition.text}
+            {weather ? (
+              weather.current.condition.text
+            ) : (
+              <div className=" animate-pulse  w-36 h-10 bg-slate-400 rounded-lg "></div>
+            )}
           </div>
-          <div className=" font-semibold  text-gray-400">
+          <div className=" font-semibold  text-gray-400 flex items-center gap-1">
             Today ·{" "}
-            {weather?.current.last_updated &&
-              fDate(new Date(weather?.current.last_updated))}
+            {weather?.current.last_updated ? (
+              fDate(new Date(weather.current.last_updated))
+            ) : (
+              <div className=" animate-pulse w-28 h-4 bg-slate-400 rounded-lg "></div>
+            )}
           </div>
         </div>
       )}
 
       <div className="flex items-center gap-1 font-semibold  text-gray-400 justify-center mt-4">
-        <MdLocationOn size={20} /> {weather?.location.name},{" "}
-        {weather?.location.country}
+        <MdLocationOn size={20} />{" "}
+        {weather ? (
+          <>
+            {weather?.location.name}, {weather?.location.country}
+          </>
+        ) : (
+          <div className=" animate-pulse w-28 h-4 bg-slate-400 rounded-lg "></div>
+        )}
       </div>
     </div>
   );
